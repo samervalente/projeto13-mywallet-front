@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react"
 import { Link, useNavigate } from "react-router-dom"
+import {axios} from "axios"
 
 export default function Register(){
     const [body, setBody] = useState({
@@ -8,16 +9,13 @@ export default function Register(){
         password:"",
     })
     const [confirm, setConfirm] = useState("")
-    const [validate, setValidate] = useState(false)
-    
- 
-
-    
-
+   
     function Register(event){
         event.preventDefault();
-    }
 
+        const promise = axios.post("http://localhost:5000/register")
+
+    }
 
     return (
         <>
@@ -31,7 +29,7 @@ export default function Register(){
                 <button>Cadastrar</button>
           </form>
            <Link to="/">
-            <p className="text-white my-5 text-base">Já possui uma conta? Entre agora!</p>
+            <h3 className="text-white my-5 text-base">Já possui uma conta? Entre agora!</h3>
            </Link>
         </div>
         </>

@@ -25,7 +25,7 @@ export default function Login(){
                 <button>Entrar</button>
            </form>
            <Link to="/register">
-            <p className="text-white mt-12 text-base">Primeira vez? Cadastre-se</p>
+            <h3 className="text-white mt-12 text-base">Primeira vez? Cadastre-se</h3>
            </Link>
         </div>
         </>
