@@ -1,18 +1,33 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../../contexts/userContext";
+import axios from "axios"
 
 export default function Exit() {
   const [exit, setExit] = useState({
     value: "",
     description: "",
   });
+  const {user} = useContext(UserContext)
+  const config = {
+    headers:{
+        Authorization:`bearer ${user.token}`
+    }
+}
 
   const navigate = useNavigate()
 
   function SaveExit(event) {
     event.preventDefault();
 
-    navigate("/movements")
+    const promise = axios.post("http://localhost:5000/exit", exit, config)
+    promise
+    .then(() => {
+      navigate("/movements")
+    })
+    .catch(() => {
+      alert("Dados inválidos")
+    })
 
   }
 

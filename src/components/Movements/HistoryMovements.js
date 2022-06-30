@@ -1,14 +1,28 @@
 import { Link } from "react-router-dom"
+import { useContext, useEffect, useState } from "react"
+import axios from "axios"
+import UserContext from "../../contexts/userContext"
 
 export default function Movements(){
-    let arr = [
-        {date:"29/06", description:"Açai", value:1450, type:"entry"},
-        {date:"29/06", description:"Prato Feito", value:1275, type:"pudim"}
+    const [movements, setMovements] = useState([])
+    const {user} = useContext(UserContext)
 
-]
+    const config = {
+        headers:{
+            Authorization:`bearer ${user.token}`
+        }
+    }
 
-const movements = arr.map(item => 
- <li className="flex justify-between mb-3">
+    useEffect(() => {
+        const promise = axios.get("http://localhost:5000/movements", config)
+        promise.then((response) => {
+            setMovements(response.data)
+        })
+    }, [])
+
+
+const userMovements = movements.map(item => 
+ <li key={item._id} className="flex justify-between mb-3">
     <div className="flex">
         <p className="text-gray-400">{item.date}</p>
         <p className="ml-3">{item.description}</p>
@@ -21,18 +35,18 @@ const movements = arr.map(item =>
         <>
             <div className="Container h-screen">
                  <div className="flex justify-between items-center mb-3 w-full">
-                        <h2>Olá, Samer</h2>
+                        <h2>Olá, {user.name}</h2>
                         <Link to="/">
                             <ion-icon name="exit-outline"></ion-icon>
                         </Link>
                  </div>
-                 {arr.length === 0 ?
+                 {movements.length === 0 ?
                  <ul className="bg-white flex items-center justify-center rounded h-3/5 w-full">
                     <p className="text-gray-400">Não há registros de entrada ou saída</p>:
                 </ul>: 
                     <ul className="bg-white p-3 rounded h-3/5 w-full">
                             <p className="text-black ">
-                                {movements}    
+                                 {userMovements}
                             </p>:
                 </ul>
                       

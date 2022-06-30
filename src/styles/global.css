@@ -66,3 +66,7 @@ p{
     @apply mr-2
 }
 
+.errorVerify ion-icon{
+    @apply text-violet-500 absolute right-20 top-3 text-2xl
+}
+

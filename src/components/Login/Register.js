@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
-import { toBeInTheDocument } from "@testing-library/jest-dom/dist/matchers"
+
 
 export default function Register(){
     const [body, setBody] = useState({
@@ -10,35 +10,33 @@ export default function Register(){
         password:"",
     })
     const [confirm, setConfirm] = useState("")
-    const [validate, setValidate] = useState(false)
+    const [validate, setValidate] = useState("init")
+    const [error, setError] = useState(false)
+   const navigate = useNavigate()
 
-   
     useEffect(() => {
-      
         if(confirm === body.password && body.password !== ""){
             setValidate(true)
         }
         if(confirm !== body.password){
             setValidate(false)
-        }
-        
-    })
+        } 
+    },[confirm, body.password])
 
     
-
     function Register(event){
         event.preventDefault();
         const promise = axios.post("http://localhost:5000/register", body)
-        promise.then((response) => {
-            console.log(response.data)
+        promise.then(() => {
+            navigate("/")
         }).catch((e) => {
             console.log(e)
-            if(e.response.status === 422){
-                alert("Dados inválidos")
+            if(e.response.status === 422 || validate === "init"){
+                setError(422)
             }
 
             if(e.response.status === 409){
-                alert("Usuário já registrado.")
+                setError(409)
             }
         })
 
@@ -53,12 +51,16 @@ export default function Register(){
                 <input placeholder="E-mail" onChange={(e) => setBody({...body, email:e.target.value})}></input>
                 <input placeholder="Senha" onChange={(e) => setBody({...body, password:e.target.value})}></input>
                 <input placeholder="Confirme a senha" onChange={(e) => {setConfirm(e.target.value)}}></input>
+
+                {error === 422? <p className="text-white mb-3">Dados inválidos</p>: null}
+                {error === 409? <p className="text-white mb-3">Usuário já registrado</p>: null}
+
                {validate ?  <button className="bg-violet-500" type="submit">Cadastrar</button> :  
-                <div className="w-full relative">
+                <div className="w-full relative errorVerify">
                 <button type="button" disabled className="bg-white opacity-80 text-violet-500">
                     Senhas não conferem 
                 </button>
-                <ion-icon className="absolute left-0.5" name="alert-circle-outline"></ion-icon>
+                <ion-icon  name="alert-circle"></ion-icon>
                 </div>
                 
              

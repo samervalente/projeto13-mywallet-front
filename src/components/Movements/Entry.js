@@ -1,18 +1,34 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../../contexts/userContext";
+import axios from "axios"
 
 export default function Entry() {
   const [entry, setEntry] = useState({
     value: "",
     description: "",
   });
+  const {user} = useContext(UserContext)
+
+  const config = {
+      headers:{
+          Authorization:`bearer ${user.token}`
+      }
+  }
+  
 
   const navigate = useNavigate()
 
   function SaveEntry(event) {
     event.preventDefault();
-    navigate("/movements")
 
+    const promise = axios.post("http://localhost:5000/entry", entry, config)
+    promise.then(() => {
+      navigate("/movements")
+    })
+    .catch(() => {
+      alert("Dados inválidos")
+    })
   }
 
   return (
