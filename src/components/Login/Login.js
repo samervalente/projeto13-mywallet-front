@@ -19,16 +19,16 @@ export default function Login(){
         promise
         .then((response) => {
             setUser(response.data)
-          
             navigate("/movements")
         })
         .catch(() => {
             alert("Email ou senha incorreta")
         })
-        
+       
     }
-   
 
+ 
+   
     return (
         <>
         <div className="Container">
@@ -39,7 +39,7 @@ export default function Login(){
                 <button>Entrar</button>
            </form>
            <Link to="/register">
-            <h3 className="text-white mt-12 text-base">Primeira vez? Cadastre-se</h3>
+            <h3 className="text-white mt-12 text-bas">Primeira vez? Cadastre-se</h3>
            </Link>
         </div>
         </>

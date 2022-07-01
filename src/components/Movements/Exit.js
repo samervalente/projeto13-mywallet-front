@@ -18,9 +18,18 @@ export default function Exit() {
   const navigate = useNavigate()
 
   function SaveExit(event) {
+    console.log(exit.value, user.balance)
     event.preventDefault();
 
-    const promise = axios.post("http://localhost:5000/exit", exit, config)
+    if(user.balance === 0 ){
+      alert(`Sua saída é maior que seu saldo (${user.balance})`)
+      navigate("/movements")
+    }
+
+    else if(exit.value > user.balance){
+      alert(`Sua saída é maior que seu saldo (${user.balance})`)
+    }else{
+      const promise = axios.post("http://localhost:5000/exit", exit, config)
     promise
     .then(() => {
       navigate("/movements")
@@ -28,6 +37,10 @@ export default function Exit() {
     .catch(() => {
       alert("Dados inválidos")
     })
+    }
+
+
+    
 
   }
 

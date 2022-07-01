@@ -19,13 +19,9 @@ body{
 }
 
 button{
-    width:100%;
-    border-radius:5px;
-    height:46px;
-    background-color:#A328D6;
-    font-weight:700;
-    color:white;
+    @apply w-full rounded h-12 bg-violet-500 font-bold text-white
 }
+
 
 input{
     @apply 
@@ -52,8 +48,6 @@ p{
     @apply  text-base font-normal
 }
 
-
-
 .Actions div{
     @apply bg-violet-500 h-28 flex flex-col justify-between w-2/4 py-3 pl-3 text-white
 }
@@ -67,6 +61,21 @@ p{
 }
 
 .errorVerify ion-icon{
-    @apply text-violet-500 absolute right-20 top-3 text-2xl
+    @apply text-violet-500 ml-3 text-2xl
 }
 
+.MovementsSection ion-icon{
+    @apply text-gray-500 text-base ml-2 cursor-pointer
+}
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.MovementsSection::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .MovementsSection {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
