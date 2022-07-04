@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react"
 import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
+import userEvent from "@testing-library/user-event"
 
 
 export default function Register(){
@@ -12,7 +13,8 @@ export default function Register(){
     const [confirm, setConfirm] = useState("")
     const [validate, setValidate] = useState("init")
     const [error, setError] = useState(false)
-   const navigate = useNavigate()
+    const navigate = useNavigate()
+    const [show, setShow] = useState(false)
 
     useEffect(() => {
         if(confirm === body.password && body.password !== ""){
@@ -41,6 +43,7 @@ export default function Register(){
 
     }
 
+
     return (
         <>
         <div className="Container">
@@ -51,8 +54,10 @@ export default function Register(){
                 value={body.name}/>
                 <input placeholder="E-mail" type="email" onChange={(e) => setBody({...body, email:e.target.value})}
                 value={body.email}/>
-                <input placeholder="Senha" type="password" onChange={(e) => setBody({...body, password:e.target.value})}value={body.password}/>
-                <input placeholder="Confirme a senha" onChange={(e) => {setConfirm(e.target.value)}} />
+                <input placeholder="Senha" type={`${show ? "text" : "password"}`} onChange={(e) => setBody({...body, password:e.target.value})}value={body.password}/>
+                <input placeholder="Confirme a senha" type={`${show ? "text" : "password"}`} onChange={(e) => {setConfirm(e.target.value)}} />
+                <div className="m-2 text-white bg-violet-500 rounded p-1" onClick={() => setShow(!show)}>{`${show ? "Esconder Senha" : "Mostrar Senha"}`}</div>
+                
 
                 {error === 422? <p className="text-white mb-3">Dados inválidos</p>: null}
                 {error === 409? <p className="text-white mb-3">Usuário já registrado</p>: null}

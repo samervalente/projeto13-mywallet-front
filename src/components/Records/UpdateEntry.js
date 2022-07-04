@@ -2,13 +2,16 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/userContext";
 import axios from "axios"
+import MovementContext from "../../contexts/MovementContext";
 
 export default function Entry() {
   const [entry, setEntry] = useState({
     value: "",
     description: "",
+    type:"entry"
   });
   const {user} = useContext(UserContext)
+  const {record} = useContext(MovementContext)
 
   const config = {
       headers:{
@@ -18,11 +21,12 @@ export default function Entry() {
   
 
   const navigate = useNavigate()
-
-  function SaveEntry(event) {
+  
+  function EditEntry(event) {
     event.preventDefault();
+  
 
-    const promise = axios.post("http://localhost:5000/entry", entry, config)
+    const promise = axios.put(`http://localhost:5000/movement/${record._id}`, entry, config)
     promise.then(() => {
       navigate("/movements")
     })
@@ -33,18 +37,18 @@ export default function Entry() {
 
   return (
     <>
-      <div className="Container Action h-screen mt-5 ">
+      <div className="Container Action h-screen msamervalente@gmail.comt-5 ">
         <div className="flex justify-between items-center mb-6 w-full">
-          <h2>Nova entrada</h2>
+          <h2>Editar entrada</h2>
         </div>
-        <form onSubmit={SaveEntry}>
+        <form onSubmit={EditEntry}>
           <input placeholder="Valor" onChange={(e) => setEntry({ ...entry, value: e.target.value })}
-            value={entry.value}
+            defaultValue={record.value} min="1" type="number"
           />
           <input placeholder="Descrição" onChange={(e) => setEntry({ ...entry, description: e.target.value })}
-            value={entry.description}
+            defaultValue={record.description}
           />
-           <button >Salvar entrada</button>
+           <button >Atualizar entrada</button>
         </form>
 
      

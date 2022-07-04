@@ -7,6 +7,7 @@ export default function Exit() {
   const [exit, setExit] = useState({
     value: "",
     description: "",
+    type:"exit"
   });
   const {user} = useContext(UserContext)
   const config = {
@@ -18,9 +19,7 @@ export default function Exit() {
   const navigate = useNavigate()
 
   function SaveExit(event) {
-    console.log(exit.value, user.balance)
     event.preventDefault();
-
     if(user.balance === 0 ){
       alert(`Sua saída é maior que seu saldo (${user.balance})`)
       navigate("/movements")
@@ -29,7 +28,7 @@ export default function Exit() {
     else if(exit.value > user.balance){
       alert(`Sua saída é maior que seu saldo (${user.balance})`)
     }else{
-      const promise = axios.post("http://localhost:5000/exit", exit, config)
+      const promise = axios.post("http://localhost:5000/movement", exit, config)
     promise
     .then(() => {
       navigate("/movements")
@@ -38,9 +37,6 @@ export default function Exit() {
       alert("Dados inválidos")
     })
     }
-
-
-    
 
   }
 
@@ -52,16 +48,13 @@ export default function Exit() {
         </div>
         <form onSubmit={SaveExit}>
           <input placeholder="Valor" onChange={(e) => setExit({ ...exit, value: e.target.value })}
-            value={exit.value}
+            value={exit.value} min="1" type="number"
           />
           <input placeholder="Descrição" onChange={(e) => setExit({ ...exit, description: e.target.value })}
-            value={exit.description}
+            value={exit.description} 
           />
            <button >Salvar saída</button>
         </form>
-
-     
-      
       </div>
     </>
   );

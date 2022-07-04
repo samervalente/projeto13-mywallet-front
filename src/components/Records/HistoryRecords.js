@@ -2,11 +2,13 @@ import { Link, useNavigate } from "react-router-dom"
 import { useContext, useEffect, useState } from "react"
 import axios from "axios"
 import UserContext from "../../contexts/userContext"
+import MovementContext from "../../contexts/MovementContext"
 
 export default function Movements(){
     const [movements, setMovements] = useState([])
   
     const {user, setUser} = useContext(UserContext)
+    const {setRecord} = useContext(MovementContext)
 
     const config = {
         headers:{
@@ -42,34 +44,32 @@ export default function Movements(){
                 setMovements(response.data)
             })
         }
-
-        
+   
     }
 
-
-    function getUpdateMovementID(id, type){
+    function getUpdateMovementID(id){
         const Movement = movements.find(movement => movement._id === id)
-        user.operation.id = Movement._id
-
-       type === "entry" ?  navigate("/updateEntry") :  navigate("/updateExit")
-        
+        setRecord({...Movement})
+        Movement.type === "entry" ?  navigate("/updateEntry") :  navigate("/updateExit")   
     }
 
     const userMovements = movements.map(item => 
-        <li onClick={() => getUpdateMovementID(item._id, item.type)} key={item._id} className="flex justify-between mb-4 cursor-pointer">
-           <div className="flex">
-               <p className="text-gray-400">{item.date}</p>
-               <p className="ml-3">{item.description}</p>
-           </div>
-           <div className="flex items-center">
-               {item.type === "entry" ? 
-               <p className="text-green-500">{item.value}
-               </p> : 
-               <p className="text-red-500">{item.value}</p>}
-               <ion-icon onClick={() => deleteMovement(item._id)} name="close-outline"></ion-icon>
-           </div>
-           
+         <li  key={item._id} className="flex justify-between items-center mb-4 cursor-pointer w-full ">
+          <div onClick={() => getUpdateMovementID(item._id)} className="flex justify-between w-full">
+            <div className="flex">
+                <p className="text-gray-400">{item.date}</p>
+                <p className="ml-3">{item.description}</p>
+            </div>
+            <div className="flex items-center">
+                {item.type === "entry" ? 
+                <p className="text-green-500">{Number(item.value).toFixed(2).replace(".",",")}
+                </p> : 
+                <p className="text-red-500">{Number(item.value).toFixed(2).replace(".",",")}</p>}   
+            </div>
+          </div>
+        <ion-icon onClick={() => deleteMovement(item._id)} name="close-outline"></ion-icon>
        </li>
+       
        )
        
     return (
@@ -92,7 +92,7 @@ export default function Movements(){
                             </div>
                             <div className="flex justify-between">
                                 <p className="font-bold text-xl">Saldo</p>
-                                <p className="text-green-500">{user.balance}</p>
+                                <p className={`${user.balance > 0 ? "text-green-500" : "text-red-500"}`}>{Number(user.balance).toFixed(2).replace(".",",")}</p>
                             </div>    
                             
                 </ul>
