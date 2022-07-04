@@ -24,7 +24,7 @@ export default function Entry() {
   function SaveEntry(event) {
     event.preventDefault();
 
-    const promise = axios.post(` https://mywalletmachine.herokuapp.com/record`, entry, config)
+    const promise = axios.post(`https://mywalletmachine.herokuapp.com/record`, entry, config)
     promise.then(() => {
       navigate("/records")
     })

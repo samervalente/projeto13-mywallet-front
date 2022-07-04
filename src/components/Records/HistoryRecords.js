@@ -19,7 +19,7 @@ export default function Movements(){
     const navigate = useNavigate()
 
     useEffect(() => {
-        const promise = axios.get("https://mywalletmachine.herokuapp.com/ /records", config)
+        const promise = axios.get("https://mywalletmachine.herokuapp.com/records", config)
         promise.then((response) => {
             setMovements(response.data)
         })
