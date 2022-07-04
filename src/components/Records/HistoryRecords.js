@@ -19,7 +19,7 @@ export default function Movements(){
     const navigate = useNavigate()
 
     useEffect(() => {
-        const promise = axios.get("http://localhost:5000/movements", config)
+        const promise = axios.get("http://localhost:5000/records", config)
         promise.then((response) => {
             setMovements(response.data)
         })
@@ -32,23 +32,23 @@ export default function Movements(){
         })
     })
 
-    function deleteMovement(id){
+   
+
+    async function deleteMovement(id){
         const confirm = window.confirm("Você deseja deletar este registro?")
         if(confirm){
-            const deleteMovement = movements.find(movement => movement._id === id)
-            const idMovement = deleteMovement._id
+            const deleteRecord = movements.find(record => record._id === id)
+           
+             await axios.delete(`http://localhost:5000/record/${deleteRecord._id}`, config)
+             const userRecords = await axios.get(`http://localhost:5000/records`,config)
     
-            const promise = axios.delete(`http://localhost:5000/movement/${idMovement}`, config)
-            promise.then((response) => {
-                axios.get("http://localhost:5000/movements", config)
-                setMovements(response.data)
-            })
+             setMovements(userRecords.data)  
         }
    
     }
 
     function getUpdateMovementID(id){
-        const Movement = movements.find(movement => movement._id === id)
+        const Movement = movements.find(record => record._id === id)
         setRecord({...Movement})
         Movement.type === "entry" ?  navigate("/updateEntry") :  navigate("/updateExit")   
     }

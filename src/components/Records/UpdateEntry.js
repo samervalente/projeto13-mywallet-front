@@ -24,11 +24,11 @@ export default function Entry() {
   
   function EditEntry(event) {
     event.preventDefault();
-  
-
-    const promise = axios.put(`http://localhost:5000/movement/${record._id}`, entry, config)
+    
+    
+    const promise = axios.put(`http://localhost:5000/record/${record._id}`, entry, config)
     promise.then(() => {
-      navigate("/movements")
+      navigate("/records")
     })
     .catch(() => {
       alert("Dados inválidos")

@@ -24,9 +24,9 @@ export default function Entry() {
   function SaveEntry(event) {
     event.preventDefault();
 
-    const promise = axios.post(`http://localhost:5000/movement`, entry, config)
+    const promise = axios.post(`http://localhost:5000/record`, entry, config)
     promise.then(() => {
-      navigate("/movements")
+      navigate("/records")
     })
     .catch(() => {
       alert("Dados inválidos")

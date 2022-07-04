@@ -19,7 +19,7 @@ export default function Login(){
         promise
         .then((response) => {
             setUser(response.data)
-            navigate("/movements")
+            navigate("/records")
         })
         .catch(() => {
             alert("Email ou senha incorreta")

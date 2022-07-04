@@ -28,7 +28,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
-              <Route path="/movements" element={<HistoryRecords />} />
+              <Route path="/records" element={<HistoryRecords />} />
               <Route path="/entry" element={<Entry />} />
               <Route path="/exit" element={<Exit />} />
               <Route path="/updateEntry" element={<UpdateEntry/>}/>

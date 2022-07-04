@@ -26,7 +26,7 @@ console.log(record)
   function EditExit(event) {
     event.preventDefault();
 
-    const promise = axios.put(`http://localhost:5000/movement/${record._id}`, exit, config)
+    const promise = axios.put(`http://localhost:5000/record/${record._id}`, exit, config)
     promise.then(() => {
       navigate("/movements")
     })
