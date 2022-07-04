@@ -19,14 +19,14 @@ export default function Movements(){
     const navigate = useNavigate()
 
     useEffect(() => {
-        const promise = axios.get("https://git.heroku.com/mywalletmachine.git/records", config)
+        const promise = axios.get("https://mywalletmachine.herokuapp.com/ /records", config)
         promise.then((response) => {
             setMovements(response.data)
         })
     }, [])
 
     useEffect(() => {
-        const promise = axios.get("https://git.heroku.com/mywalletmachine.git/balance",config)
+        const promise = axios.get("https://mywalletmachine.herokuapp.com/balance",config)
         promise.then((response) => {
             setUser({...user, balance:response.data.balance})
         })
@@ -39,8 +39,8 @@ export default function Movements(){
         if(confirm){
             const deleteRecord = movements.find(record => record._id === id)
            
-             await axios.delete(`https://git.heroku.com/mywalletmachine.git/record/${deleteRecord._id}`, config)
-             const userRecords = await axios.get(`https://git.heroku.com/mywalletmachine.git/records`,config)
+             await axios.delete(`https://mywalletmachine.herokuapp.com/${deleteRecord._id}`, config)
+             const userRecords = await axios.get(`https://mywalletmachine.herokuapp.com/records`,config)
     
              setMovements(userRecords.data)  
         }

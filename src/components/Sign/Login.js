@@ -17,7 +17,7 @@ export default function Login(){
         event.preventDefault()
         
 
-        const promise = axios.post("https://git.heroku.com/mywalletmachine.git/login", body)
+        const promise = axios.post("https://mywalletmachine.herokuapp.com/login", body)
         promise
         .then((response) => {
             setUser(response.data)

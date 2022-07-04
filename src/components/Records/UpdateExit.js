@@ -26,7 +26,7 @@ console.log(record)
   function EditExit(event) {
     event.preventDefault();
 
-    const promise = axios.put(`https://git.heroku.com/mywalletmachine.git/record/${record._id}`, exit, config)
+    const promise = axios.put(`https://mywalletmachine.herokuapp.com/record/${record._id}`, exit, config)
     promise.then(() => {
       navigate("/records")
     })

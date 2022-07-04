@@ -28,7 +28,7 @@ export default function Exit() {
     else if(exit.value > user.balance){
       alert(`Sua saída é maior que seu saldo (${user.balance})`)
     }else{
-      const promise = axios.post("https://git.heroku.com/mywalletmachine.git/record", exit, config)
+      const promise = axios.post(" https://mywalletmachine.herokuapp.com/ /record", exit, config)
     promise
     .then(() => {
       navigate("/records")
