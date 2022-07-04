@@ -19,21 +19,27 @@ export default function Entry() {
       }
   }
   
-console.log(record)
+
   const navigate = useNavigate()
  
-
   function EditExit(event) {
     event.preventDefault();
 
-    const promise = axios.put(`https://mywalletmachine.herokuapp.com/record/${record._id}`, exit, config)
-    promise.then(() => {
+    if(exit.value > user.balance){
+      alert(`Sua saída é maior que seu saldo (${user.balance})`)
+    }else{
+      const promise =axios.put(`https://mywalletmachine.herokuapp.com/record/${record._id}`, exit, config)
+    promise
+    .then(() => {
       navigate("/records")
     })
     .catch(() => {
       alert("Dados inválidos")
     })
+    }
   }
+
+ 
 
   return (
     <>
