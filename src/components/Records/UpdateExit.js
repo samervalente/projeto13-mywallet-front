@@ -26,9 +26,9 @@ console.log(record)
   function EditExit(event) {
     event.preventDefault();
 
-    const promise = axios.put(`http://localhost:5000/record/${record._id}`, exit, config)
+    const promise = axios.put(`https://git.heroku.com/mywalletmachine.git/record/${record._id}`, exit, config)
     promise.then(() => {
-      navigate("/movements")
+      navigate("/records")
     })
     .catch(() => {
       alert("Dados inválidos")

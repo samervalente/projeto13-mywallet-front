@@ -24,7 +24,7 @@ export default function Entry() {
   function SaveEntry(event) {
     event.preventDefault();
 
-    const promise = axios.post(`http://localhost:5000/record`, entry, config)
+    const promise = axios.post(`https://git.heroku.com/mywalletmachine.git/record`, entry, config)
     promise.then(() => {
       navigate("/records")
     })

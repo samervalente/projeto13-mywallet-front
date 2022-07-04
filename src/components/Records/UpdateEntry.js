@@ -26,7 +26,7 @@ export default function Entry() {
     event.preventDefault();
     
     
-    const promise = axios.put(`http://localhost:5000/record/${record._id}`, entry, config)
+    const promise = axios.put(`https://git.heroku.com/mywalletmachine.git/record/${record._id}`, entry, config)
     promise.then(() => {
       navigate("/records")
     })

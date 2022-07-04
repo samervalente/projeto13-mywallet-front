@@ -27,7 +27,7 @@ export default function Register(){
 
     function Register(event){
         event.preventDefault();
-        const promise = axios.post("http://localhost:5000/register", body)
+        const promise = axios.post("https://git.heroku.com/mywalletmachine.git/register", body)
         promise.then(() => {
             navigate("/")
         }).catch((e) => {
